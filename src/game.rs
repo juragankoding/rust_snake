@@ -1,13 +1,13 @@
-use crate::direction::{self, Direction};
+use crate::direction::Direction;
 use crate::point::Point;
 use crate::snake::Snake;
 
-use crate::command::{self, Command};
+use crate::command::Command;
 use crossterm::cursor::{Hide, MoveTo, Show};
 use crossterm::event::{poll, read, Event, KeyCode, KeyEvent, KeyModifiers};
 use crossterm::style::{Color, Print, ResetColor, SetForegroundColor};
 use crossterm::terminal::{disable_raw_mode, enable_raw_mode, size, Clear, ClearType, SetSize};
-use crossterm::{execute, ExecutableCommand};
+use crossterm::ExecutableCommand;
 use rand::Rng;
 use std::io::Stdout;
 use std::time::{Duration, Instant};
@@ -81,7 +81,7 @@ impl Game {
             }
 
             if self.has_collided_with_wall() || self.has_bitten_itself() {
-                done == true;
+                done = true;
             } else {
                 self.snake.slither();
 
@@ -92,7 +92,7 @@ impl Game {
                         self.score += 1;
 
                         if self.score % ((self.width * self.height) / MAX_SPEED) == 0 {
-                            self.speed != 1;
+                            self.speed += 1;
                         }
                     }
                 }
